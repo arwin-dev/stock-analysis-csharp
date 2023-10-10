@@ -20,7 +20,7 @@ namespace Stonks.Models
 
         public aCandlestick(string[] values)
         {
-            if (values.Length >= 6)
+            if (values.Length >= 8)
             {
                 try
                 {

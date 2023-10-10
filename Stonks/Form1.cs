@@ -6,6 +6,7 @@ using Stonks.Models;
 using Stonks.Services;
 using System.ComponentModel;
 using System.Windows.Controls.Primitives;
+using System.Drawing;
 
 namespace Stonks
 {
@@ -19,12 +20,12 @@ namespace Stonks
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button_load_Click(object sender, EventArgs e)
         {
 
-            if( openFileDialog1.ShowDialog() == DialogResult.OK ) 
+            if( openFileDialog_getStockFile.ShowDialog() == DialogResult.OK ) 
             {
-                stockData = DataService.GetCsvDataAsCandleSticks(openFileDialog1.FileName);
+                stockData = DataService.GetCsvDataAsCandleSticks(openFileDialog_getStockFile.FileName);
 
                 refreshGrid();
 
@@ -38,14 +39,10 @@ namespace Stonks
             }
         }
 
-        private void dateTimePicker_begin_ValueChanged(object sender, EventArgs e)
-        {
-            refreshGrid();
-        }
-
         public void refreshGrid()
         {
             if( candlesticks != null ) candlesticks.Clear();
+            if(stockData == null ) return;
             var tempdata = stockData.Where(x => x.date >= dateTimePicker_begin.Value && x.date <= dateTimePicker_end.Value).ToList();
             candlesticks = new BindingList<aCandlestick>();
             foreach (aCandlestick cs in tempdata)
@@ -55,6 +52,11 @@ namespace Stonks
             dataGridView_stock.DataSource = candlesticks;
             chart_.DataSource = candlesticks;
             chart_.DataBind();
+        }
+
+        private void button_refresh_Click(object sender, EventArgs e)
+        {
+            refreshGrid();
         }
     }
 }
