@@ -8,11 +8,16 @@ using LiveChartsCore;
 using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.WinForms;
+using System.ComponentModel;
 
 namespace Stonks
 {
     public partial class Form1 : Form
     {
+        List<aCandlestick> stockData = null;
+        List<aCandlestick> templist = new List<aCandlestick>();
+        private BindingList<aCandlestick> candlesticks {  get; set; }
+
         private CartesianChart cartesianChart;
 
         public Form1()
@@ -25,21 +30,37 @@ namespace Stonks
 
             if( openFileDialog1.ShowDialog() == DialogResult.OK ) 
             {
-                List<aCandlestick> stockData = new List<aCandlestick>();
                 stockData = DataService.GetCsvDataAsCandleSticks(openFileDialog1.FileName);
-                dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
-                dataGridView1.DataSource = stockData;
+                
 
-                dataGridView1.Columns[1].Visible = false;
-                dataGridView1.Columns[2].Visible = false;
+
+                stockData = stockData.Where(x => x.date >= dateTimePicker1.Value && x.date <= dateTimePicker2.Value).ToList();
+
+
+                candlesticks = new BindingList<aCandlestick>();
+                foreach (aCandlestick cs in stockData)
+                {
+                    candlesticks.Add(cs);
+                }
+
+                dataGridView_stock.DataSource = candlesticks;
+
+                
+                chart1.DataSource = candlesticks;
+                chart1.DataBind();
+
+                dataGridView_stock.Columns[1].Visible = false;
+                dataGridView_stock.Columns[2].Visible = false;
 
                 var data = stockData.FirstOrDefault();
 
                 label1.Text = data.ticker;
                 label2.Text = data.period;
 
-                var chartService = new ChartService(stockData);
+                
+
+                /*var chartService = new ChartService(stockData);
 
                 cartesianChart = new CartesianChart
                 {
@@ -51,11 +72,21 @@ namespace Stonks
                 };
 
                 Controls.Add(cartesianChart);
-                cartesianChart.BringToFront();
+                cartesianChart.BringToFront();*/
             }
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chart1_Click(object sender, EventArgs e)
         {
 
         }

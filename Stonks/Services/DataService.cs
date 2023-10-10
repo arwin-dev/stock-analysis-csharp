@@ -39,7 +39,7 @@ namespace Stonks.Services
             {
                 MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
+            aCandlesticks.Reverse();
             return aCandlesticks;
         }
     }

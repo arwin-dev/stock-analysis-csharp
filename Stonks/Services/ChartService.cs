@@ -3,6 +3,7 @@ using LiveChartsCore;
 using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
 using Stonks.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,7 +20,8 @@ namespace Stonks.Services
             {
                 new CandlesticksSeries<FinancialPointI>
                 {
-                    Values = candlestickList.Select(x => new FinancialPointI( (double) x.high, (double) x.open, (double) x.close, (double) x.low))
+                    Values = candlestickList
+                            .Select(x => new FinancialPointI( (double) x.high, (double) x.open, (double) x.close, (double) x.low))
                     .ToArray()
                 }
             };
