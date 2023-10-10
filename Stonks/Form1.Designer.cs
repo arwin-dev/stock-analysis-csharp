@@ -29,11 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.dataGridView_stock = new System.Windows.Forms.DataGridView();
@@ -50,7 +49,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1097, 147);
+            this.button1.Location = new System.Drawing.Point(1097, 168);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(204, 36);
             this.button1.TabIndex = 0;
@@ -76,53 +75,53 @@
             // 
             // dateTimePicker_begin
             // 
-            this.dateTimePicker_begin.Location = new System.Drawing.Point(1097, 71);
+            this.dateTimePicker_begin.Location = new System.Drawing.Point(1097, 94);
             this.dateTimePicker_begin.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker_begin.Name = "dateTimePicker_begin";
             this.dateTimePicker_begin.Size = new System.Drawing.Size(204, 20);
             this.dateTimePicker_begin.TabIndex = 4;
-            this.dateTimePicker_begin.Value = new System.DateTime(2023, 4, 1, 0, 0, 0, 0);
+            this.dateTimePicker_begin.Value = new System.DateTime(2019, 1, 1, 0, 0, 0, 0);
+            this.dateTimePicker_begin.ValueChanged += new System.EventHandler(this.dateTimePicker_begin_ValueChanged);
             // 
             // dateTimePicker_end
             // 
-            this.dateTimePicker_end.Location = new System.Drawing.Point(1097, 109);
+            this.dateTimePicker_end.Location = new System.Drawing.Point(1097, 134);
             this.dateTimePicker_end.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker_end.Name = "dateTimePicker_end";
             this.dateTimePicker_end.Size = new System.Drawing.Size(204, 20);
             this.dateTimePicker_end.TabIndex = 5;
+            this.dateTimePicker_end.ValueChanged += new System.EventHandler(this.dateTimePicker_begin_ValueChanged);
             // 
             // chart_
             // 
-            chartArea7.Name = "ChartArea_ohlc";
-            chartArea8.AlignWithChartArea = "ChartArea_ohlc";
-            chartArea8.Name = "ChartArea_volume";
-            this.chart_.ChartAreas.Add(chartArea7);
-            this.chart_.ChartAreas.Add(chartArea8);
+            chartArea1.Name = "ChartArea_ohlc";
+            chartArea2.AlignWithChartArea = "ChartArea_ohlc";
+            chartArea2.Name = "ChartArea_volume";
+            this.chart_.ChartAreas.Add(chartArea1);
+            this.chart_.ChartAreas.Add(chartArea2);
             this.chart_.DataSource = this.aCandlestickBindingSource;
-            legend4.Name = "Legend1";
-            this.chart_.Legends.Add(legend4);
-            this.chart_.Location = new System.Drawing.Point(32, 260);
+            this.chart_.Location = new System.Drawing.Point(32, 234);
             this.chart_.Margin = new System.Windows.Forms.Padding(2);
             this.chart_.Name = "chart_";
-            series7.ChartArea = "ChartArea_ohlc";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series7.CustomProperties = "PriceDownColor=Red, PriceUpColor=LawnGreen";
-            series7.Legend = "Legend1";
-            series7.Name = "Series_ohlc";
-            series7.XValueMember = "date";
-            series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Date;
-            series7.YValueMembers = "open, high, low, close";
-            series7.YValuesPerPoint = 4;
-            series8.ChartArea = "ChartArea_volume";
-            series8.Legend = "Legend1";
-            series8.Name = "Series_volume";
-            series8.XValueMember = "date";
-            series8.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Date;
-            series8.YValueMembers = "volume";
-            series8.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
-            this.chart_.Series.Add(series7);
-            this.chart_.Series.Add(series8);
-            this.chart_.Size = new System.Drawing.Size(1361, 500);
+            series1.ChartArea = "ChartArea_ohlc";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series1.CustomProperties = "PriceDownColor=Red, PriceUpColor=Lime";
+            series1.MarkerBorderColor = System.Drawing.Color.White;
+            series1.MarkerSize = 1;
+            series1.Name = "Series_ohlc";
+            series1.XValueMember = "date";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Date;
+            series1.YValueMembers = "high, low, open, close";
+            series1.YValuesPerPoint = 4;
+            series2.ChartArea = "ChartArea_volume";
+            series2.Name = "Series_volume";
+            series2.XValueMember = "date";
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Date;
+            series2.YValueMembers = "volume";
+            series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
+            this.chart_.Series.Add(series1);
+            this.chart_.Series.Add(series2);
+            this.chart_.Size = new System.Drawing.Size(1361, 705);
             this.chart_.TabIndex = 6;
             this.chart_.Text = "chart1";
             // 
@@ -133,7 +132,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1178, 24);
+            this.label1.Location = new System.Drawing.Point(1146, 50);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 7;
@@ -142,7 +141,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(1178, 46);
+            this.label2.Location = new System.Drawing.Point(1213, 50);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 8;
@@ -152,7 +151,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1425, 809);
+            this.ClientSize = new System.Drawing.Size(1425, 950);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.chart_);
