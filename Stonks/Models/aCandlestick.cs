@@ -1,9 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace Stonks.Models
 {
@@ -27,7 +22,6 @@ namespace Stonks.Models
         {
             if (values.Length >= 6)
             {
-                // Parse the values and initialize the properties
                 try
                 {
                     ticker = values[0].Trim('"'); 
@@ -41,13 +35,11 @@ namespace Stonks.Models
                 }
                 catch (FormatException ex)
                 {
-                    // Handle the exception (e.g., log it or throw a custom exception)
                     throw new FormatException("Failed to parse candlestick values.", ex);
                 }
             }
             else
             {
-                // Handle the case where the input array doesn't have enough values
                 throw new ArgumentException("Input values array should have at least 6 elements.");
             }
         }
