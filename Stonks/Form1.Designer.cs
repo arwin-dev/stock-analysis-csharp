@@ -40,13 +40,13 @@ namespace Stonks
             this.dataGridView_stock = new System.Windows.Forms.DataGridView();
             this.dateTimePicker_begin = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker_end = new System.Windows.Forms.DateTimePicker();
-            this.chart_ = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart_data = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.button_refresh = new System.Windows.Forms.Button();
             this.aCandlestickBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_stock)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart_)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_data)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.aCandlestickBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,17 +93,17 @@ namespace Stonks
             this.dateTimePicker_end.Size = new System.Drawing.Size(204, 20);
             this.dateTimePicker_end.TabIndex = 5;
             // 
-            // chart_
+            // chart_data
             // 
             chartArea1.Name = "ChartArea_ohlc";
             chartArea2.AlignWithChartArea = "ChartArea_ohlc";
             chartArea2.Name = "ChartArea_volume";
-            this.chart_.ChartAreas.Add(chartArea1);
-            this.chart_.ChartAreas.Add(chartArea2);
-            this.chart_.DataSource = this.aCandlestickBindingSource;
-            this.chart_.Location = new System.Drawing.Point(32, 234);
-            this.chart_.Margin = new System.Windows.Forms.Padding(2);
-            this.chart_.Name = "chart_";
+            this.chart_data.ChartAreas.Add(chartArea1);
+            this.chart_data.ChartAreas.Add(chartArea2);
+            this.chart_data.DataSource = this.aCandlestickBindingSource;
+            this.chart_data.Location = new System.Drawing.Point(32, 234);
+            this.chart_data.Margin = new System.Windows.Forms.Padding(2);
+            this.chart_data.Name = "chart_data";
             series1.ChartArea = "ChartArea_ohlc";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
             series1.CustomProperties = "PriceDownColor=Red, PriceUpColor=Lime";
@@ -120,11 +120,11 @@ namespace Stonks
             series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Date;
             series2.YValueMembers = "volume";
             series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int64;
-            this.chart_.Series.Add(series1);
-            this.chart_.Series.Add(series2);
-            this.chart_.Size = new System.Drawing.Size(1361, 705);
-            this.chart_.TabIndex = 6;
-            this.chart_.Text = "chart1";
+            this.chart_data.Series.Add(series1);
+            this.chart_data.Series.Add(series2);
+            this.chart_data.Size = new System.Drawing.Size(1361, 705);
+            this.chart_data.TabIndex = 6;
+            this.chart_data.Text = "chart1";
             // 
             // label1
             // 
@@ -166,7 +166,7 @@ namespace Stonks
             this.Controls.Add(this.button_refresh);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.chart_);
+            this.Controls.Add(this.chart_data);
             this.Controls.Add(this.dateTimePicker_end);
             this.Controls.Add(this.dateTimePicker_begin);
             this.Controls.Add(this.dataGridView_stock);
@@ -174,7 +174,7 @@ namespace Stonks
             this.Name = "Form1";
             this.Text = "Stonks Analysis";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_stock)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart_)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_data)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.aCandlestickBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -189,7 +189,7 @@ namespace Stonks
         private System.Windows.Forms.BindingSource aCandlestickBindingSource;
         private System.Windows.Forms.DateTimePicker dateTimePicker_begin;
         private System.Windows.Forms.DateTimePicker dateTimePicker_end;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart_;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_data;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button_refresh;

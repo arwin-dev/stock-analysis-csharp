@@ -5,8 +5,6 @@ using System.Windows.Forms;
 using Stonks.Models;
 using Stonks.Services;
 using System.ComponentModel;
-using System.Windows.Controls.Primitives;
-using System.Drawing;
 
 namespace Stonks
 {
@@ -50,8 +48,8 @@ namespace Stonks
                 candlesticks.Add(cs);
             }
             dataGridView_stock.DataSource = candlesticks;
-            chart_.DataSource = candlesticks;
-            chart_.DataBind();
+            chart_data.DataSource = candlesticks;
+            chart_data.DataBind();
         }
 
         private void button_refresh_Click(object sender, EventArgs e)
