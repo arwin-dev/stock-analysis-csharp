@@ -8,6 +8,7 @@ namespace Stonks.Services
 {
     internal class DataService
     {
+        // Gets the filename of the .csv file, parses it and creates objects and returns them as a list of candlesticks after reversing the order of the data
         public static List<aCandlestick> GetCsvDataAsCandleSticks(string filename)
         {
             List<aCandlestick> aCandlesticks = new List<aCandlestick>();

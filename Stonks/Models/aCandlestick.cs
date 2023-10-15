@@ -2,25 +2,28 @@
 
 namespace Stonks.Models
 {
+    //candleStick Object
     public class aCandlestick
     {
         public DateTime date { get; set; }
         public string ticker { get; set; }
         public string period { get; set; }
         public Decimal open { get; set; }
+        public Decimal close { get; set; }
         public Decimal high { get; set; }
         public Decimal low { get; set; }
-        public Decimal close { get; set; }
         public long volume { get; set; }
 
+        //Creates a empty object
         public aCandlestick()
         {
             
         }
 
+        //Constructor which accepts a array of values and then sets values into the object.
         public aCandlestick(string[] values)
         {
-            if (values.Length >= 8)
+            if (values.Length >= 9)
             {
                 try
                 {
@@ -40,7 +43,7 @@ namespace Stonks.Models
             }
             else
             {
-                throw new ArgumentException("Input values array should have at least 6 elements.");
+                throw new ArgumentException("Input values array should have at least 8 elements.");
             }
         }
     }

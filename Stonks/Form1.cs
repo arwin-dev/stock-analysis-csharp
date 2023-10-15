@@ -19,6 +19,7 @@ namespace Stonks
             InitializeComponent();
         }
 
+        // Get the Data as list of acandleStick objects and Calls the refreshGrid funtion on OnClick event
         private void button_load_Click(object sender, EventArgs e)
         {
 
@@ -26,6 +27,13 @@ namespace Stonks
             {
                 stockData = DataService.GetCsvDataAsCandleSticks(openFileDialog_getStockFile.FileName);
 
+                if (stockData == null || stockData.Count == 0)
+                {
+                    MessageBox.Show("Invalid Date Range!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                button_refresh.Visible = true;
                 refreshGrid();
 
                 dataGridView_stock.Columns[1].Visible = false;
@@ -33,11 +41,19 @@ namespace Stonks
             }
         }
 
+        // Functions filters data and then binds data into the DataGridView and Chart
         public void refreshGrid()
         {
             if( candlesticks != null ) candlesticks.Clear();
             if(stockData == null ) return;
             var tempdata = stockData.Where(x => x.date >= dateTimePicker_begin.Value && x.date <= dateTimePicker_end.Value).ToList();
+
+            if(tempdata == null || tempdata.Count == 0 ) 
+            {
+                MessageBox.Show("Invalid Date Range!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             candlesticks = new BindingList<aCandlestick>();
             foreach (aCandlestick cs in tempdata)
             {
@@ -54,9 +70,10 @@ namespace Stonks
             var change = Math.Round(candlesticks.Last().close - candlesticks.First().close, 2);
             label_priceChange.ForeColor = change < 0 ? Color.Red : Color.Green;
 
-            label_priceChange.Text = change.ToString();
+            label_priceChange.Text = change > 0 ? change.ToString() + "$ ↑" : change.ToString() + "$ ↓";
         }
 
+        // Calls the RefreshGrid function Refresh Button Click
         private void button_refresh_Click(object sender, EventArgs e)
         {
             refreshGrid();
