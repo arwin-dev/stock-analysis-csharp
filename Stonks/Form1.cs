@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Stonks.Models;
 using Stonks.Services;
 using System.ComponentModel;
+using System.Drawing;
 
 namespace Stonks
 {
@@ -29,11 +30,6 @@ namespace Stonks
 
                 dataGridView_stock.Columns[1].Visible = false;
                 dataGridView_stock.Columns[2].Visible = false;
-
-                var data = stockData.FirstOrDefault();
-
-                label1.Text = data.ticker;
-                label2.Text = data.period;
             }
         }
 
@@ -50,11 +46,21 @@ namespace Stonks
             dataGridView_stock.DataSource = candlesticks;
             chart_data.DataSource = candlesticks;
             chart_data.DataBind();
+
+            var data = stockData.FirstOrDefault();
+            var period = data.period.ToLower() == "day" ? "Daily" : data.period.ToString() + "ly";
+            label_ticker.Text = data.ticker;
+            label_period.Text = period;
+            var change = Math.Round(candlesticks.Last().close - candlesticks.First().close, 2);
+            label_priceChange.ForeColor = change < 0 ? Color.Red : Color.Green;
+
+            label_priceChange.Text = change.ToString();
         }
 
         private void button_refresh_Click(object sender, EventArgs e)
         {
             refreshGrid();
         }
+
     }
 }
