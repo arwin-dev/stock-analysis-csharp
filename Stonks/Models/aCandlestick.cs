@@ -2,7 +2,11 @@
 
 namespace Stonks.Models
 {
-    //candleStick Object
+    /*
+        aCandlestick class creates aCandlestick object that has the following information : ticker, period,
+        open, high, low, close, volume and date. These values correspond to the specific company's stocks
+        the user chooses. 
+    */
     public class aCandlestick
     {
         public DateTime date { get; set; }
@@ -27,6 +31,13 @@ namespace Stonks.Models
             {
                 try
                 {
+                    /*
+                        values[2] and values[3] contain the date value, they are split because
+                        the date is stored in the following format in the data file: Month Day, Year
+                        In the dataReader class, the values in each line is parse using "," as 
+                        a delimiter which splits the Month Day section and the Year section 
+                        into two separate values.
+                    */
                     ticker = values[0].Trim('"'); 
                     period = values[1].Trim('"');
                     open = Convert.ToDecimal(values[4]);

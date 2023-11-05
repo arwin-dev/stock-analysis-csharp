@@ -19,7 +19,10 @@ namespace Stonks
             InitializeComponent();
         }
 
-        // Get the Data as list of acandleStick objects and Calls the refreshGrid funtion on OnClick event
+        /*
+            The button_load_Click function allows users to load data from their chosen 
+            file upon clicking. 
+        */
         private void button_load_Click(object sender, EventArgs e)
         {
 
@@ -41,7 +44,11 @@ namespace Stonks
             }
         }
 
-        // Functions filters data and then binds data into the DataGridView and Chart
+        /*
+            The refreshGrid function makes sure that dataGridView is cleared if values pre-exist. 
+            This function also makes sure that only the candlesticks within the chose timeframe
+            is displayed. Additionally, it also binds the data with both the dataGridView and the chart.
+        */
         public void refreshGrid()
         {
             if( candlesticks != null ) candlesticks.Clear();
@@ -73,7 +80,10 @@ namespace Stonks
             label_priceChange.Text = change > 0 ? change.ToString() + "$ ↑" : change.ToString() + "$ ↓";
         }
 
-        // Calls the RefreshGrid function Refresh Button Click
+        /*
+            When the user clicks on the Reload Button, all the data displayed on the dataGridView 
+            and the chart is reloaded.
+        */
         private void button_refresh_Click(object sender, EventArgs e)
         {
             refreshGrid();

@@ -8,7 +8,12 @@ namespace Stonks.Services
 {
     internal class DataService
     {
-        // Gets the filename of the .csv file, parses it and creates objects and returns them as a list of candlesticks after reversing the order of the data
+        /*
+            The class dataReader reads data from chosen file and parses the data to be stored inside 
+            a string list values depending on delimiters. 
+            Next, a candlestick object using aCandlestick class is created and the values list is passed as an argument for every line
+            in the data file. 
+         */
         public static List<aCandlestick> GetCsvDataAsCandleSticks(string filename)
         {
             List<aCandlestick> aCandlesticks = new List<aCandlestick>();
@@ -40,7 +45,7 @@ namespace Stonks.Services
             {
                 MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            aCandlesticks.Reverse();
+            aCandlesticks.Reverse(); // this is done to make the data appear in DESC
             return aCandlesticks;
         }
     }
