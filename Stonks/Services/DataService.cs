@@ -9,9 +9,9 @@ namespace Stonks.Services
     internal class DataService
     {
         // Gets the filename of the .csv file, parses it and creates objects and returns them as a list of candlesticks after reversing the order of the data
-        public static List<aCandlestick> GetCsvDataAsCandleSticks(string filename)
+        public static List<smartCandlestick> GetCsvDataAsCandleSticks(string filename)
         {
-            List<aCandlestick> aCandlesticks = new List<aCandlestick>();
+            List<smartCandlestick> aCandlesticks = new List<smartCandlestick>();
 
             try
             {
@@ -26,7 +26,7 @@ namespace Stonks.Services
 
                         if (values.Length >= 9)
                         {
-                            aCandlestick aCandlestick = new aCandlestick(values);
+                            smartCandlestick aCandlestick = new smartCandlestick(values);
                             aCandlesticks.Add(aCandlestick); 
                         }
                         else

@@ -22,62 +22,20 @@ namespace Stonks
         // Get the Data as list of acandleStick objects and Calls the refreshGrid funtion on OnClick event
         private void button_load_Click(object sender, EventArgs e)
         {
+            openFileDialog_getStockFile.ShowDialog();
 
-            if( openFileDialog_getStockFile.ShowDialog() == DialogResult.OK ) 
-            {
-                stockData = DataService.GetCsvDataAsCandleSticks(openFileDialog_getStockFile.FileName);
-
-                if (stockData == null || stockData.Count == 0)
-                {
-                    MessageBox.Show("Invalid Date Range!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                button_refresh.Visible = true;
-                refreshGrid();
-
-                dataGridView_stock.Columns[1].Visible = false;
-                dataGridView_stock.Columns[2].Visible = false;
-            }
         }
 
-        // Functions filters data and then binds data into the DataGridView and Chart
-        public void refreshGrid()
+        private void openFileDialog_getStockFile_FileOk(object sender, CancelEventArgs e)
         {
-            if( candlesticks != null ) candlesticks.Clear();
-            if(stockData == null ) return;
-            var tempdata = stockData.Where(x => x.date >= dateTimePicker_begin.Value && x.date <= dateTimePicker_end.Value).ToList();
-
-            if(tempdata == null || tempdata.Count == 0 ) 
+            foreach (string file in openFileDialog_getStockFile.FileNames)
             {
-                MessageBox.Show("Invalid Date Range!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                List<smartCandlestick> data = DataService.GetCsvDataAsCandleSticks(file);
+
+                ChartDisplay newChart = new ChartDisplay(data, dateTimePicker_begin.Value, dateTimePicker_end.Value);
+                newChart.Show();
             }
-
-            candlesticks = new BindingList<aCandlestick>();
-            foreach (aCandlestick cs in tempdata)
-            {
-                candlesticks.Add(cs);
-            }
-            dataGridView_stock.DataSource = candlesticks;
-            chart_data.DataSource = candlesticks;
-            chart_data.DataBind();
-
-            var data = stockData.FirstOrDefault();
-            var period = data.period.ToLower() == "day" ? "Daily" : data.period.ToString() + "ly";
-            label_ticker.Text = data.ticker;
-            label_period.Text = period;
-            var change = Math.Round(candlesticks.Last().close - candlesticks.First().close, 2);
-            label_priceChange.ForeColor = change < 0 ? Color.Red : Color.Green;
-
-            label_priceChange.Text = change > 0 ? change.ToString() + "$ ↑" : change.ToString() + "$ ↓";
         }
-
-        // Calls the RefreshGrid function Refresh Button Click
-        private void button_refresh_Click(object sender, EventArgs e)
-        {
-            refreshGrid();
-        }
-
+        
     }
 }
