@@ -19,7 +19,10 @@ namespace Stonks
             InitializeComponent();
         }
 
-        // Get the Data as list of acandleStick objects and Calls the refreshGrid funtion on OnClick event
+        /*
+            The button_load_Click function allows users to load data from their chosen 
+            file upon clicking. 
+        */
         private void button_load_Click(object sender, EventArgs e)
         {
             openFileDialog_getStockFile.ShowDialog();

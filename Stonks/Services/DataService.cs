@@ -40,7 +40,7 @@ namespace Stonks.Services
             {
                 MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            aCandlesticks.Reverse();
+            aCandlesticks.Reverse(); // this is done to make the data appear in DESC
             return aCandlesticks;
         }
     }
