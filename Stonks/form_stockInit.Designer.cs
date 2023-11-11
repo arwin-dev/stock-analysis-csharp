@@ -2,7 +2,7 @@
 
 namespace Stonks
 {
-    partial class Form1
+    partial class form_stockInit
     {
         /// <summary>
         /// Required designer variable.
@@ -30,15 +30,12 @@ namespace Stonks
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.button_load = new System.Windows.Forms.Button();
             this.openFileDialog_getStockFile = new System.Windows.Forms.OpenFileDialog();
             this.dateTimePicker_begin = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker_end = new System.Windows.Forms.DateTimePicker();
             this.label_periodBegin = new System.Windows.Forms.Label();
             this.label_periodEnd = new System.Windows.Forms.Label();
-            this.bindingSource_aCandlestick = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource_aCandlestick)).BeginInit();
             this.SuspendLayout();
             // 
             // button_load
@@ -98,11 +95,7 @@ namespace Stonks
             this.label_periodEnd.TabIndex = 12;
             this.label_periodEnd.Text = "Period End";
             // 
-            // bindingSource_aCandlestick
-            // 
-            this.bindingSource_aCandlestick.DataSource = typeof(Stonks.Models.aCandlestick);
-            // 
-            // Form1
+            // form_stockInit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -113,9 +106,8 @@ namespace Stonks
             this.Controls.Add(this.dateTimePicker_end);
             this.Controls.Add(this.dateTimePicker_begin);
             this.Controls.Add(this.button_load);
-            this.Name = "Form1";
+            this.Name = "form_stockInit";
             this.Text = "Stonks Analysis";
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource_aCandlestick)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -125,7 +117,6 @@ namespace Stonks
 
         private System.Windows.Forms.Button button_load;
         private System.Windows.Forms.OpenFileDialog openFileDialog_getStockFile;
-        private System.Windows.Forms.BindingSource bindingSource_aCandlestick;
         private System.Windows.Forms.DateTimePicker dateTimePicker_begin;
         private System.Windows.Forms.DateTimePicker dateTimePicker_end;
         private Label label_periodBegin;

@@ -46,6 +46,7 @@ namespace Stonks.Models
                     close = Convert.ToDecimal(values[7]);
                     volume = Convert.ToInt64(values[8]);
                     date = DateTime.Parse(values[2].Trim('"') + " " + values[3].Trim('"'));
+
                 }
                 catch (FormatException ex)
                 {

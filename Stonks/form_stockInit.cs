@@ -9,12 +9,11 @@ using System.Drawing;
 
 namespace Stonks
 {
-    public partial class Form1 : Form
+    public partial class form_stockInit : Form
     {
-        List<aCandlestick> stockData = null;
         private BindingList<aCandlestick> candlesticks {  get; set; }
 
-        public Form1()
+        public form_stockInit()
         {
             InitializeComponent();
         }
@@ -35,7 +34,7 @@ namespace Stonks
             {
                 List<smartCandlestick> data = DataService.GetCsvDataAsCandleSticks(file);
 
-                ChartDisplay newChart = new ChartDisplay(data, dateTimePicker_begin.Value, dateTimePicker_end.Value);
+                form_chartDisplay newChart = new form_chartDisplay(data, dateTimePicker_begin.Value, dateTimePicker_end.Value);
                 newChart.Show();
             }
         }
