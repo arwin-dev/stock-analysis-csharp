@@ -44,6 +44,7 @@
             this.label_periodBegin = new System.Windows.Forms.Label();
             this.comboBox_patterns = new System.Windows.Forms.ComboBox();
             this.bindingSource_aCandlestick = new System.Windows.Forms.BindingSource(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chart_data)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource_aCandlestick)).BeginInit();
             this.SuspendLayout();
@@ -83,7 +84,7 @@
             // 
             // dateTimePicker_begin
             // 
-            this.dateTimePicker_begin.Location = new System.Drawing.Point(394, 702);
+            this.dateTimePicker_begin.Location = new System.Drawing.Point(362, 708);
             this.dateTimePicker_begin.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker_begin.Name = "dateTimePicker_begin";
             this.dateTimePicker_begin.Size = new System.Drawing.Size(204, 20);
@@ -92,7 +93,7 @@
             // 
             // dateTimePicker_end
             // 
-            this.dateTimePicker_end.Location = new System.Drawing.Point(696, 702);
+            this.dateTimePicker_end.Location = new System.Drawing.Point(758, 708);
             this.dateTimePicker_end.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker_end.Name = "dateTimePicker_end";
             this.dateTimePicker_end.Size = new System.Drawing.Size(204, 20);
@@ -131,10 +132,10 @@
             // 
             // button_refreshBtn
             // 
-            this.button_refreshBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_refreshBtn.Location = new System.Drawing.Point(542, 762);
+            this.button_refreshBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_refreshBtn.Location = new System.Drawing.Point(604, 706);
             this.button_refreshBtn.Name = "button_refreshBtn";
-            this.button_refreshBtn.Size = new System.Drawing.Size(241, 37);
+            this.button_refreshBtn.Size = new System.Drawing.Size(113, 22);
             this.button_refreshBtn.TabIndex = 14;
             this.button_refreshBtn.Text = "Refresh";
             this.button_refreshBtn.UseVisualStyleBackColor = true;
@@ -163,9 +164,9 @@
             // comboBox_patterns
             // 
             this.comboBox_patterns.FormattingEnabled = true;
-            this.comboBox_patterns.Location = new System.Drawing.Point(1038, 701);
+            this.comboBox_patterns.Location = new System.Drawing.Point(1160, 711);
             this.comboBox_patterns.Name = "comboBox_patterns";
-            this.comboBox_patterns.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_patterns.Size = new System.Drawing.Size(113, 21);
             this.comboBox_patterns.TabIndex = 18;
             this.comboBox_patterns.SelectedIndexChanged += new System.EventHandler(this.comboBox_patterns_SelectedIndexChanged);
             // 
@@ -173,11 +174,22 @@
             // 
             this.bindingSource_aCandlestick.DataSource = typeof(Stonks.Models.smartCandlestick);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(1086, 716);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(49, 16);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "Pattern";
+            // 
             // form_chartDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1345, 833);
+            this.ClientSize = new System.Drawing.Size(1312, 800);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox_patterns);
             this.Controls.Add(this.label_periodEnd);
             this.Controls.Add(this.label_periodBegin);
@@ -210,5 +222,6 @@
         private System.Windows.Forms.Label label_periodBegin;
         private System.Windows.Forms.ComboBox comboBox_patterns;
         private System.Windows.Forms.BindingSource bindingSource_aCandlestick;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -13,21 +13,29 @@ namespace Stonks
     {
         private BindingList<aCandlestick> candlesticks {  get; set; }
 
+        /// <summary>
+        /// Constructor for the form_stockInit class.
+        /// Initializes the form.
+        /// </summary>
         public form_stockInit()
         {
             InitializeComponent();
         }
 
-        /*
-            The button_load_Click function allows users to load data from their chosen 
-            file upon clicking. 
-        */
+        /// <summary>
+        /// Event handler for the "Load" button click.
+        /// Opens a file dialog for users to select a data file.
+        /// </summary>
         private void button_load_Click(object sender, EventArgs e)
         {
             openFileDialog_getStockFile.ShowDialog();
 
         }
 
+        /// <summary>
+        /// Event handler for the file dialog's "FileOk" event.
+        /// Retrieves data from the selected file, creates a new form_chartDisplay, and displays it.
+        /// </summary>
         private void openFileDialog_getStockFile_FileOk(object sender, CancelEventArgs e)
         {
             foreach (string file in openFileDialog_getStockFile.FileNames)

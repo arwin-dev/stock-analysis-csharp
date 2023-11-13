@@ -2,11 +2,10 @@
 
 namespace Stonks.Models
 {
-    /*
-        aCandlestick class creates aCandlestick object that has the following information : ticker, period,
-        open, high, low, close, volume and date. These values correspond to the specific company's stocks
-        the user chooses. 
-    */
+    /// <summary>
+    /// The aCandlestick class represents a candlestick object that contains information
+    /// about a specific company's stock for a given date and time period.
+    /// </summary>
     public class aCandlestick
     {
         public DateTime date { get; set; }
@@ -24,7 +23,10 @@ namespace Stonks.Models
             
         }
 
-        //Constructor which accepts a array of values and then sets values into the object.
+        /// <summary>
+        /// Constructor that accepts an array of values and initializes the object's properties.
+        /// </summary>
+        /// <param name="values">An array of values containing stock data</param>
         public aCandlestick(string[] values)
         {
             if (values.Length >= 9)

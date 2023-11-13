@@ -15,6 +15,14 @@ namespace Stonks
         List<smartCandlestick> stockData = null;
         List<smartCandlestick> tempop = null;
         private BindingList<smartCandlestick> candlesticks { get; set; }
+
+        /// <summary>
+        /// Constructor for the form.
+        /// Initializes the form, sets data, begin, and end dates, and populates UI elements.
+        /// </summary>
+        /// <param name="data">List of smartCandlestick data</param>
+        /// <param name="begin">Start date for the data</param>
+        /// <param name="end">End date for the data</param>
         public form_chartDisplay(List<smartCandlestick> data, DateTime begin, DateTime end)
         {
             InitializeComponent();
@@ -46,6 +54,11 @@ namespace Stonks
             refreshGrid();
         }
 
+        /// <summary>
+        /// This function is called every time there is a change in the date range.
+        /// It uses LINQ to filter the data according to the selected dates and binds the filtered data into the chart.
+        /// The function also updates the stock name and the price change label.
+        /// </summary>
         public void refreshGrid()
         {
             if (candlesticks != null) candlesticks.Clear();
@@ -90,11 +103,23 @@ namespace Stonks
             label_priceChange.Text = change > 0 ? change.ToString() + "$ ↑" : change.ToString() + "$ ↓";
         }
 
+        /// <summary>
+        /// Event handler for the click event of the "Refresh" button.
+        /// Calls the refreshGrid function to update the chart based on the selected date range.
+        /// </summary>
+        /// <param name="sender">The object that triggered the event</param>
+        /// <param name="e">Event arguments</param>
         private void button_refreshBtn_MouseClick(object sender, MouseEventArgs e)
         {
             refreshGrid();
         }
 
+        /// <summary>
+        /// Event handler for the selection change in the candlestick patterns dropdown.
+        /// Clears existing chart annotations and adds new annotations based on the selected pattern.
+        /// </summary>
+        /// <param name="sender">The object that triggered the event</param>
+        /// <param name="e">Event arguments</param>
         private void comboBox_patterns_SelectedIndexChanged(object sender, EventArgs e)
         {
             chart_data.Annotations.Clear();
@@ -201,6 +226,10 @@ namespace Stonks
             }
         }
 
+        /// <summary>
+        /// Creates an annotation on the chart for a specific candlestick.
+        /// </summary>
+        /// <param name="cs">The smartCandlestick for which to create the annotation</param>
         public void CreateAnnotation(smartCandlestick cs) 
         {
             var rectangleAnnotation = new ArrowAnnotation();
@@ -214,7 +243,7 @@ namespace Stonks
             rectangleAnnotation.Height = 5;
             rectangleAnnotation.ArrowSize = 2;
 
-            rectangleAnnotation.LineColor = Color.Red;
+            rectangleAnnotation.LineColor = cs.isBullish ? Color.Green : Color.Red;
 
             chart_data.Annotations.Add(rectangleAnnotation);
         }
