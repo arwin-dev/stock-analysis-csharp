@@ -51,6 +51,8 @@ namespace Stonks
             
             label_ticker.Text = TempData.ticker;
             label_period.Text = period;
+            this.Text = TempData.ticker;
+
             refreshGrid();
         }
 
