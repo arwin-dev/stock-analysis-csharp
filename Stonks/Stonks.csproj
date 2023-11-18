@@ -90,6 +90,7 @@
     <Compile Include="Models\smartCandlestick.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Recognizers\Recognizer.cs" />
     <Compile Include="Services\DataService.cs" />
     <EmbeddedResource Include="form_chartDisplay.resx">
       <DependentUpon>form_chartDisplay.cs</DependentUpon>
