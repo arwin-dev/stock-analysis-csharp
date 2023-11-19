@@ -1,4 +1,5 @@
 ﻿using Stonks.Models;
+using Stonks.Recognizers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -249,5 +250,15 @@ namespace Stonks
 
             chart_data.Annotations.Add(rectangleAnnotation);
         }
+
+/*        private Recognizer GetSelectedRecognizer()
+        {
+            string selectedPattern = comboBox_patterns.SelectedValue.ToString();
+
+            switch(selectedPattern) 
+            {
+                case ""
+            }
+        }*/
     }
 }

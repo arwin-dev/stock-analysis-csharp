@@ -30,6 +30,11 @@ namespace Stonks.Recognizers
             return smartCandlesticksTemp;
         }
 
+        public virtual bool recognizePattern(smartCandlestick sc)
+        {
+            return false;
+        }
+
         public virtual bool recognizePattern(List<smartCandlestick> sc)
         {
             return false;
@@ -42,13 +47,9 @@ namespace Stonks.Recognizers
         {
             
         }
-        public override bool recognizePattern(List<smartCandlestick> smartCandlesticks)
+        public override bool recognizePattern(smartCandlestick cs)
         {
-            if(patternSize == 3)
-            {
-                return true;
-            }
-            return false;
+            return cs.isDoji;
         }
     }
 
@@ -58,9 +59,31 @@ namespace Stonks.Recognizers
         {
             
         }
-        public override bool recognizePattern(List<smartCandlestick> smartCandlesticks)
+        public override bool recognizePattern(smartCandlestick cs)
         {
-            return smartCandlesticks[0].isHammer;
+            return cs.isHammer;
+        }
+    }
+
+    class peakRecognizer : Recognizer
+    {
+        public peakRecognizer(int patternSize, string patternName) : base(patternSize, patternName)
+        {
+            
+        }
+
+        public override bool recognizePattern(List<smartCandlestick> sc)
+        {
+            if (sc.Count == 3) 
+            {
+                smartCandlestick sc1 = sc[0];
+                smartCandlestick sc2 = sc[1];
+                smartCandlestick sc3 = sc[2];
+
+                return (sc2.high > sc1.high) && (sc2.high > sc3.high);
+            }
+
+            return false;
         }
     }
 }
