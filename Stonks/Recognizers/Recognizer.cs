@@ -64,6 +64,89 @@ namespace Stonks.Recognizers
             return cs.isHammer;
         }
     }
+    class bullishRecognizer : Recognizer
+    {
+        public bullishRecognizer(int patternSize, string patternName) : base(patternSize, patternName)
+        {
+
+        }
+        public override bool recognizePattern(smartCandlestick cs)
+        {
+            return cs.isBullish;
+        }
+    }
+
+    class bearishRecognizer : Recognizer
+    {
+        public bearishRecognizer(int patternSize, string patternName) : base(patternSize, patternName)
+        {
+
+        }
+        public override bool recognizePattern(smartCandlestick cs)
+        {
+            return cs.isBearish;
+        }
+    }
+
+    class neutralRecognizer : Recognizer
+    {
+        public neutralRecognizer(int patternSize, string patternName) : base(patternSize, patternName)
+        {
+
+        }
+        public override bool recognizePattern(smartCandlestick cs)
+        {
+            return cs.isNeutral;
+        }
+    }
+
+    class marubozuRecognizer : Recognizer
+    {
+        public marubozuRecognizer(int patternSize, string patternName) : base(patternSize, patternName)
+        {
+
+        }
+        public override bool recognizePattern(smartCandlestick cs)
+        {
+            return cs.isMarubozu;
+        }
+    }
+
+    class dragonflyDojiRecognizer : Recognizer
+    {
+        public dragonflyDojiRecognizer(int patternSize, string patternName) : base(patternSize, patternName)
+        {
+
+        }
+        public override bool recognizePattern(smartCandlestick cs)
+        {
+            return cs.isDragonFlyDoji;
+        }
+    }
+
+    class gravestoneDojiRecognizer : Recognizer
+    {
+        public gravestoneDojiRecognizer(int patternSize, string patternName) : base(patternSize, patternName)
+        {
+
+        }
+        public override bool recognizePattern(smartCandlestick cs)
+        {
+            return cs.isGravestoneDoji;
+        }
+    }
+
+    class invertedHammerRecognizer : Recognizer
+    {
+        public invertedHammerRecognizer(int patternSize, string patternName) : base(patternSize, patternName)
+        {
+
+        }
+        public override bool recognizePattern(smartCandlestick cs)
+        {
+            return cs.isInvertedHammer;
+        }
+    }
 
     class peakRecognizer : Recognizer
     {

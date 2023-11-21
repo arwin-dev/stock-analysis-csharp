@@ -15,6 +15,7 @@ namespace Stonks
     {
         List<smartCandlestick> stockData = null;
         List<smartCandlestick> tempop = null;
+        List<Recognizer> recognizers = null;
         private BindingList<smartCandlestick> candlesticks { get; set; }
 
         /// <summary>
@@ -32,20 +33,8 @@ namespace Stonks
             dateTimePicker_begin.Value = begin;
             dateTimePicker_end.Value = end;
 
-            List<string> candlestickPatterns = new List<string>
-            {
-                "",
-                "Bullish",
-                "Bearish",
-                "Neutral",
-                "Doji",
-                "Marubozu",
-                "DragonFly Doji",
-                "Gravestone Doji",
-                "Hammer",
-                "Inverted Hammer"
-            };
-            comboBox_patterns.DataSource = candlestickPatterns;
+            InitRecognizers();
+            InitComboBox();
 
             var TempData = stockData.FirstOrDefault();
             var period = TempData.period.ToLower() == "day" ? "Daily" : TempData.period.ToString() + "ly";
@@ -127,103 +116,19 @@ namespace Stonks
         {
             chart_data.Annotations.Clear();
             
+            var reco = recognizers[comboBox_patterns.SelectedIndex];
 
-            if (comboBox_patterns.SelectedValue.ToString() == "Bullish")
+            for(int i = 0; i < tempop.Count ; i++) 
             {
-                foreach (smartCandlestick cs in tempop)
+                if (reco.recognizePattern(tempop[i]))
                 {
-                    if (cs.isBullish)
+                    if(reco.patternSize == 1)
                     {
-                        CreateAnnotation(cs);
+                        CreateAnnotation(tempop[i]);
                     }
-                }
-            }
-
-            if (comboBox_patterns.SelectedValue.ToString() == "Bearish")
-            {
-                foreach (smartCandlestick cs in tempop)
-                {
-                    if (cs.isBearish)
+                    else
                     {
-                        CreateAnnotation(cs);
-                    }
-                }
-            }
 
-            if (comboBox_patterns.SelectedValue.ToString() == "Neutral")
-            {
-                foreach (smartCandlestick cs in tempop)
-                {
-                    if (cs.isNeutral)
-                    {
-                        CreateAnnotation(cs);
-                    }
-                }
-            }
-
-            if (comboBox_patterns.SelectedValue.ToString() == "Doji")
-            {
-                foreach (smartCandlestick cs in tempop)
-                {
-
-                    if (cs.isDoji)
-                    {
-                        CreateAnnotation(cs);
-                    }
-                }
-            }
-
-            if (comboBox_patterns.SelectedValue.ToString() == "Marubozu")
-            {
-                foreach (smartCandlestick cs in tempop)
-                {
-                    if (cs.isMarubozu)
-                    {
-                        CreateAnnotation(cs);
-                    }
-                }
-            }
-
-            if (comboBox_patterns.SelectedValue.ToString() == "DragonFly Doji")
-            {
-                foreach (smartCandlestick cs in tempop)
-                {
-                    if (cs.isDragonFlyDoji)
-                    {
-                        CreateAnnotation(cs);
-                    }
-                }
-            }
-
-            if (comboBox_patterns.SelectedValue.ToString() == "Gravestone Doji")
-            {
-                foreach (smartCandlestick cs in tempop)
-                {
-                    if (cs.isGravestoneDoji)
-                    {
-                        CreateAnnotation(cs);
-                    }
-                }
-            }
-
-            if (comboBox_patterns.SelectedValue.ToString() == "Hammer")
-            {
-                foreach (smartCandlestick cs in tempop)
-                {
-                    if (cs.isHammer)
-                    {
-                        CreateAnnotation(cs);
-                    }
-                }
-            }
-
-            if (comboBox_patterns.SelectedValue.ToString() == "Inverted Hammer")
-            {
-                foreach (smartCandlestick cs in tempop)
-                {
-                    if (cs.isInvertedHammer)
-                    {
-                        CreateAnnotation(cs);
                     }
                 }
             }
@@ -235,30 +140,54 @@ namespace Stonks
         /// <param name="cs">The smartCandlestick for which to create the annotation</param>
         public void CreateAnnotation(smartCandlestick cs) 
         {
-            var rectangleAnnotation = new ArrowAnnotation();
-            rectangleAnnotation.AxisX = chart_data.ChartAreas[0].AxisX;
-            rectangleAnnotation.AxisY = chart_data.ChartAreas[0].AxisY;
-            rectangleAnnotation.X = cs.date.ToOADate();
+            var arrowAnnotation = new ArrowAnnotation();
+            arrowAnnotation.AxisX = chart_data.ChartAreas[0].AxisX;
+            arrowAnnotation.AxisY = chart_data.ChartAreas[0].AxisY;
+            arrowAnnotation.X = cs.date.ToOADate();
 
-            rectangleAnnotation.Y = (double)(cs.low) - 5;
-            rectangleAnnotation.LineWidth = 1;
-            rectangleAnnotation.Width = 0;
-            rectangleAnnotation.Height = 5;
-            rectangleAnnotation.ArrowSize = 2;
+            arrowAnnotation.Y = (double)(cs.low) - 5;
+            arrowAnnotation.LineWidth = 1;
+            arrowAnnotation.Width = 0;
+            arrowAnnotation.Height = 5;
+            arrowAnnotation.ArrowSize = 2;
 
-            rectangleAnnotation.LineColor = cs.isBullish ? Color.Green : Color.Red;
+            arrowAnnotation.LineColor = cs.isBullish ? Color.Green : Color.Red;
 
-            chart_data.Annotations.Add(rectangleAnnotation);
+            chart_data.Annotations.Add(arrowAnnotation);
         }
 
-/*        private Recognizer GetSelectedRecognizer()
+        public void CreateListOfAnnotation(List<smartCandlestick> cs)
         {
-            string selectedPattern = comboBox_patterns.SelectedValue.ToString();
 
-            switch(selectedPattern) 
+
+        }
+
+        public void InitRecognizers()
+        {
+            List<Recognizer> lr = new List<Recognizer>();
+            lr.Add(new bullishRecognizer(1, "Bullish"));
+            lr.Add(new bearishRecognizer(1, "Bearish"));
+            lr.Add(new neutralRecognizer(1, "Neutral"));
+            lr.Add(new marubozuRecognizer(1, "Marubozu"));
+            lr.Add(new dojiRecognizer(1, "Doji"));
+            lr.Add(new dragonflyDojiRecognizer(1, "DragonFly Doji"));
+            lr.Add(new gravestoneDojiRecognizer(1, "Gravestone Doji"));
+            lr.Add(new hammerRecognizer(1, "Hammer"));
+            lr.Add(new invertedHammerRecognizer(1, "Inverted Hammer"));
+            lr.Add(new peakRecognizer(3, "Peak"));
+
+            recognizers = lr;
+        }
+
+        public void InitComboBox()
+        {
+            List<string> strings = new List<string>();
+            foreach (Recognizer r in recognizers) 
             {
-                case ""
+                strings.Add(r.patternName);
             }
-        }*/
+
+            comboBox_patterns.DataSource = strings;
+        }
     }
 }
