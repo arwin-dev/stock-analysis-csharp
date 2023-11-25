@@ -81,8 +81,8 @@ namespace Stonks
 
             }
 
-            chart_data.ChartAreas["ChartArea_ohlc"].AxisY.Minimum = (double)min - 10;
-            chart_data.ChartAreas["ChartArea_ohlc"].AxisY.Maximum = (double)max + 10;
+            chart_data.ChartAreas["ChartArea_ohlc"].AxisY.Minimum = (double)min * 0.8;
+            chart_data.ChartAreas["ChartArea_ohlc"].AxisY.Maximum = (double)max * 1.1;
             chart_data.DataSource = candlesticks;
             chart_data.DataBind();
 
@@ -129,7 +129,7 @@ namespace Stonks
                     List<smartCandlestick> subList = tempop.GetRange(i, selectedRecognizer.patternSize);
                     if (selectedRecognizer.recognizePattern(subList))
                     {
-                        CreateListOfAnnotation(subList);
+                        CreateListOfAnnotation(subList, selectedRecognizer.patternName);
                     }
                 }
             }
@@ -139,7 +139,10 @@ namespace Stonks
         /// Creates an annotation on the chart for a specific candlestick.
         /// </summary>
         /// <param name="cs">The smartCandlestick for which to create the annotation</param>
-        public void CreateAnnotation(smartCandlestick cs, Color color = default, Color color2 = default) 
+        /// <param name="color">Line color for multicandlesticcks</param>
+        /// <param name="color2">Back color for multicandlesticcks</param>
+        /// <param name="patternName">Pattern Name of the candlesticks</param>
+        public void CreateAnnotation(smartCandlestick cs, Color color = default, Color color2 = default, string patternName = "")
         {
             var arrowAnnotation = new ArrowAnnotation();
             arrowAnnotation.AxisX = chart_data.ChartAreas[0].AxisX;
@@ -155,17 +158,37 @@ namespace Stonks
             arrowAnnotation.LineColor = color == default ? (cs.isBullish ? Color.Green : Color.Red) : color;
             arrowAnnotation.BackColor = color2 == default ? default : color2;
 
+            if (color2 != default)
+            {
+                double x1 = chart_data.Series[0].Points[0].XValue;
+                double x2 = chart_data.Series[0].Points[1].XValue;
+                double candlestickWidth = Math.Abs(x2 - x1);
+
+                var textAnnotation = new TextAnnotation();
+                textAnnotation.AxisX = chart_data.ChartAreas[0].AxisX;
+                textAnnotation.AxisY = chart_data.ChartAreas[0].AxisY;
+                textAnnotation.X = cs.date.ToOADate() - candlestickWidth;
+                textAnnotation.Y = (double)(cs.high)*1.1;
+                textAnnotation.Text = patternName;
+                textAnnotation.AnchorAlignment = ContentAlignment.MiddleLeft;
+                textAnnotation.Alignment = ContentAlignment.MiddleLeft;
+                chart_data.Annotations.Add(textAnnotation);
+            }
+
             chart_data.Annotations.Add(arrowAnnotation);
+            
         }
+
         /// <summary>
         /// Handles multistick candlestick patterns (Peak and Valley patterns)
         /// </summary>
         /// <param name="cs">List of Candlesticks</param>
-        public void CreateListOfAnnotation(List<smartCandlestick> cs)
+        /// <param name="patternName">Pattern Name of the candlesticks</param>
+        public void CreateListOfAnnotation(List<smartCandlestick> cs, string patternName)
         {
             CreateAnnotation(cs[0], Color.LightGreen);
             CreateAnnotation(cs[2], Color.LightGreen);
-            CreateAnnotation(cs[1], Color.Red, Color.Red);
+            CreateAnnotation(cs[1], Color.Red, Color.Red, patternName);
         }
 
         /// <summary>
