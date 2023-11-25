@@ -107,28 +107,29 @@ namespace Stonks
         }
 
         /// <summary>
-        /// Event handler for the selection change in the candlestick patterns dropdown.
-        /// Clears existing chart annotations and adds new annotations based on the selected pattern.
+        /// Event handler for the selection change in the combo box containing candlestick patterns.
+        /// Clears existing chart annotations and creates new annotations based on the selected pattern recognizer.
         /// </summary>
-        /// <param name="sender">The object that triggered the event</param>
+        /// <param name="sender">The object that triggered the event (combo box)</param>
         /// <param name="e">Event arguments</param>
         private void comboBox_patterns_SelectedIndexChanged(object sender, EventArgs e)
         {
             chart_data.Annotations.Clear();
             
-            var reco = recognizers[comboBox_patterns.SelectedIndex];
-
+            var selectedRecognizer = recognizers[comboBox_patterns.SelectedIndex];
+            if (tempop == null) return;
             for(int i = 0; i < tempop.Count ; i++) 
             {
-                if (reco.recognizePattern(tempop[i]))
+                if(selectedRecognizer.recognizePattern(tempop[i]) && selectedRecognizer.patternSize == 1)
                 {
-                    if(reco.patternSize == 1)
+                    CreateAnnotation(tempop[i]);
+                }
+                else if(i < tempop.Count - selectedRecognizer.patternSize + 1)
+                {
+                    List<smartCandlestick> subList = tempop.GetRange(i, selectedRecognizer.patternSize);
+                    if (selectedRecognizer.recognizePattern(subList))
                     {
-                        CreateAnnotation(tempop[i]);
-                    }
-                    else
-                    {
-
+                        CreateListOfAnnotation(subList);
                     }
                 }
             }
@@ -138,7 +139,7 @@ namespace Stonks
         /// Creates an annotation on the chart for a specific candlestick.
         /// </summary>
         /// <param name="cs">The smartCandlestick for which to create the annotation</param>
-        public void CreateAnnotation(smartCandlestick cs) 
+        public void CreateAnnotation(smartCandlestick cs, Color color = default, Color color2 = default) 
         {
             var arrowAnnotation = new ArrowAnnotation();
             arrowAnnotation.AxisX = chart_data.ChartAreas[0].AxisX;
@@ -150,18 +151,26 @@ namespace Stonks
             arrowAnnotation.Width = 0;
             arrowAnnotation.Height = 5;
             arrowAnnotation.ArrowSize = 2;
-
-            arrowAnnotation.LineColor = cs.isBullish ? Color.Green : Color.Red;
+            arrowAnnotation.ForeColor = color;
+            arrowAnnotation.LineColor = color == default ? (cs.isBullish ? Color.Green : Color.Red) : color;
+            arrowAnnotation.BackColor = color2 == default ? default : color2;
 
             chart_data.Annotations.Add(arrowAnnotation);
         }
-
+        /// <summary>
+        /// Handles multistick candlestick patterns (Peak and Valley patterns)
+        /// </summary>
+        /// <param name="cs">List of Candlesticks</param>
         public void CreateListOfAnnotation(List<smartCandlestick> cs)
         {
-
-
+            CreateAnnotation(cs[0], Color.LightGreen);
+            CreateAnnotation(cs[2], Color.LightGreen);
+            CreateAnnotation(cs[1], Color.Red, Color.Red);
         }
 
+        /// <summary>
+        /// Initializes the list of pattern recognizers with predefined instances for various candlestick patterns.
+        /// </summary>
         public void InitRecognizers()
         {
             List<Recognizer> lr = new List<Recognizer>();
@@ -175,19 +184,23 @@ namespace Stonks
             lr.Add(new hammerRecognizer(1, "Hammer"));
             lr.Add(new invertedHammerRecognizer(1, "Inverted Hammer"));
             lr.Add(new peakRecognizer(3, "Peak"));
+            lr.Add(new valleyRecognizer(3, "Valley"));
 
             recognizers = lr;
         }
 
+        /// <summary>
+        /// Initializes the combo box by populating it with the names of the available candlestick patterns.
+        /// </summary>
         public void InitComboBox()
         {
-            List<string> strings = new List<string>();
+            List<string> patternNames = new List<string>();
             foreach (Recognizer r in recognizers) 
             {
-                strings.Add(r.patternName);
+                patternNames.Add(r.patternName);
             }
 
-            comboBox_patterns.DataSource = strings;
+            comboBox_patterns.DataSource = patternNames;
         }
     }
 }
