@@ -1,9 +1,5 @@
 ﻿using Stonks.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Stonks.Recognizers
 {
@@ -186,6 +182,90 @@ namespace Stonks.Recognizers
                 smartCandlestick sc3 = sc[2];
 
                 return (sc2.low < sc1.low) && (sc2.low < sc3.low);
+            }
+
+            return false;
+        }
+    }
+
+    class bullishEngulfingRecognizer : Recognizer
+    {
+        public bullishEngulfingRecognizer(int patternSize, string patternName) : base(patternSize, patternName)
+        {
+
+        }
+
+        public override bool recognizePattern(List<smartCandlestick> sc)
+        {
+            if (sc.Count == patternSize)
+            {
+                smartCandlestick sc1 = sc[0];
+                smartCandlestick sc2 = sc[1];
+
+                return (sc2.close > sc2.open) && (sc1.close < sc1.open) && (sc2.close > sc1.open) && (sc2.open < sc1.close);
+            }
+
+            return false;
+        }
+    }
+
+    class bearishEngulfingRecognizer : Recognizer
+    {
+        public bearishEngulfingRecognizer(int patternSize, string patternName) : base(patternSize, patternName)
+        {
+
+        }
+
+        public override bool recognizePattern(List<smartCandlestick> sc)
+        {
+            if (sc.Count == patternSize)
+            {
+                smartCandlestick sc1 = sc[0];
+                smartCandlestick sc2 = sc[1];
+
+                return (sc2.close < sc2.open) && (sc1.close > sc1.open) && (sc2.close < sc1.open) && (sc2.open > sc1.close);
+            }
+
+            return false;
+        }
+    }
+
+    class bullishHaramiRecognizer : Recognizer
+    {
+        public bullishHaramiRecognizer(int patternSize, string patternName) : base(patternSize, patternName)
+        {
+
+        }
+
+        public override bool recognizePattern(List<smartCandlestick> sc)
+        {
+            if (sc.Count == patternSize)
+            {
+                smartCandlestick sc1 = sc[0];
+                smartCandlestick sc2 = sc[1];
+
+                return (sc2.close > sc2.open) && (sc2.open > sc1.close) && (sc2.close < sc1.open) && (sc1.close > sc2.open);
+            }
+
+            return false;
+        }
+    }
+
+    class bearishHaramiRecognizer : Recognizer
+    {
+        public bearishHaramiRecognizer(int patternSize, string patternName) : base(patternSize, patternName)
+        {
+
+        }
+
+        public override bool recognizePattern(List<smartCandlestick> sc)
+        {
+            if (sc.Count == patternSize)
+            {
+                smartCandlestick sc1 = sc[0];
+                smartCandlestick sc2 = sc[1];
+
+                return (sc2.close < sc2.open) && (sc2.open < sc1.close) && (sc2.close > sc1.open) && (sc1.close < sc2.open);
             }
 
             return false;

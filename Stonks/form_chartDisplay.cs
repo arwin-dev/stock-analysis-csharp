@@ -186,9 +186,17 @@ namespace Stonks
         /// <param name="patternName">Pattern Name of the candlesticks</param>
         public void CreateListOfAnnotation(List<smartCandlestick> cs, string patternName)
         {
-            CreateAnnotation(cs[0], Color.LightGreen);
-            CreateAnnotation(cs[2], Color.LightGreen);
-            CreateAnnotation(cs[1], Color.Red, Color.Red, patternName);
+            if(cs.Count == 2)
+            {
+                CreateAnnotation(cs[0], Color.LightGreen);
+                CreateAnnotation(cs[1], Color.Red, Color.Red, patternName);
+            }
+            else if(cs.Count == 3) 
+            {
+                CreateAnnotation(cs[0], Color.LightGreen);
+                CreateAnnotation(cs[2], Color.LightGreen);
+                CreateAnnotation(cs[1], Color.Red, Color.Red, patternName);
+            }
         }
 
         /// <summary>
@@ -208,6 +216,10 @@ namespace Stonks
             lr.Add(new invertedHammerRecognizer(1, "Inverted Hammer"));
             lr.Add(new peakRecognizer(3, "Peak"));
             lr.Add(new valleyRecognizer(3, "Valley"));
+            lr.Add(new bullishEngulfingRecognizer(2, "Bullish Engulfing"));
+            lr.Add(new bearishEngulfingRecognizer(2, "Bearish Engulfing"));
+            lr.Add(new bullishHaramiRecognizer(2, "Bullish Harami"));
+            lr.Add(new bearishHaramiRecognizer(2, "Bullish Harami"));
 
             recognizers = lr;
         }
