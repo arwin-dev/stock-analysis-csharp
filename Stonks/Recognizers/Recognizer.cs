@@ -244,7 +244,7 @@ namespace Stonks.Recognizers
                 smartCandlestick sc1 = sc[0];
                 smartCandlestick sc2 = sc[1];
 
-                return (sc2.close > sc2.open) && (sc2.open > sc1.close) && (sc2.close < sc1.open) && (sc1.close > sc2.open);
+                return (sc1.isBearish && sc2.bodyRange < sc1.bodyRange && sc2.range < sc1.range && sc1.close < sc2.open);
             }
 
             return false;
@@ -265,7 +265,7 @@ namespace Stonks.Recognizers
                 smartCandlestick sc1 = sc[0];
                 smartCandlestick sc2 = sc[1];
 
-                return (sc2.close < sc2.open) && (sc2.open < sc1.close) && (sc2.close > sc1.open) && (sc1.close < sc2.open);
+                return sc1.isBullish && sc2.bodyRange < sc1.bodyRange && sc2.range < sc1.range && sc1.close > sc2.open;
             }
 
             return false;

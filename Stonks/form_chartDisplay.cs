@@ -214,12 +214,12 @@ namespace Stonks
             lr.Add(new gravestoneDojiRecognizer(1, "Gravestone Doji"));
             lr.Add(new hammerRecognizer(1, "Hammer"));
             lr.Add(new invertedHammerRecognizer(1, "Inverted Hammer"));
-            lr.Add(new peakRecognizer(3, "Peak"));
-            lr.Add(new valleyRecognizer(3, "Valley"));
             lr.Add(new bullishEngulfingRecognizer(2, "Bullish Engulfing"));
             lr.Add(new bearishEngulfingRecognizer(2, "Bearish Engulfing"));
             lr.Add(new bullishHaramiRecognizer(2, "Bullish Harami"));
-            lr.Add(new bearishHaramiRecognizer(2, "Bullish Harami"));
+            lr.Add(new bearishHaramiRecognizer(2, "Bearish Harami"));
+            lr.Add(new peakRecognizer(3, "Peak"));
+            lr.Add(new valleyRecognizer(3, "Valley"));
 
             recognizers = lr;
         }
