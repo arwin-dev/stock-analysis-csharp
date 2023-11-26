@@ -14,7 +14,7 @@ namespace Stonks
     public partial class form_chartDisplay : Form
     {
         List<smartCandlestick> stockData = null;
-        List<smartCandlestick> tempop = null;
+        List<smartCandlestick> filteredCandlesticks = null;
         List<Recognizer> recognizers = null;
         private BindingList<smartCandlestick> candlesticks { get; set; }
 
@@ -56,7 +56,7 @@ namespace Stonks
             if (candlesticks != null) candlesticks.Clear();
             if (stockData == null) return;
             var tempdata = stockData.Where(x => x.date >= dateTimePicker_begin.Value && x.date <= dateTimePicker_end.Value).ToList();
-            tempop = tempdata;
+            filteredCandlesticks = tempdata;
             if (tempdata == null || tempdata.Count == 0)
             {
                 MessageBox.Show("Invalid Date Range!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -117,16 +117,16 @@ namespace Stonks
             chart_data.Annotations.Clear();
             
             var selectedRecognizer = recognizers[comboBox_patterns.SelectedIndex];
-            if (tempop == null) return;
-            for(int i = 0; i < tempop.Count ; i++) 
+            if (filteredCandlesticks == null) return;
+            for(int i = 0; i < filteredCandlesticks.Count ; i++) 
             {
-                if(selectedRecognizer.recognizePattern(tempop[i]) && selectedRecognizer.patternSize == 1)
+                if(selectedRecognizer.recognizePattern(filteredCandlesticks[i]) && selectedRecognizer.patternSize == 1)
                 {
-                    CreateAnnotation(tempop[i]);
+                    CreateAnnotation(filteredCandlesticks[i]);
                 }
-                else if(i < tempop.Count - selectedRecognizer.patternSize + 1)
+                else if(i < filteredCandlesticks.Count - selectedRecognizer.patternSize + 1)
                 {
-                    List<smartCandlestick> subList = tempop.GetRange(i, selectedRecognizer.patternSize);
+                    List<smartCandlestick> subList = filteredCandlesticks.GetRange(i, selectedRecognizer.patternSize);
                     if (selectedRecognizer.recognizePattern(subList))
                     {
                         CreateListOfAnnotation(subList, selectedRecognizer.patternName);
