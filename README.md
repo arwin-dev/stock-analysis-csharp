@@ -1,4 +1,4 @@
-# Stock Pattern Analysis Project
+# Stock Analysis Project
 
 ## Overview
 This project is a Windows Forms application written in C#. It is designed to analyze stock patterns and visualize these patterns using rectangle annotations. The application utilizes object-oriented programming principles, specifically abstract classes and their concrete implementations, to effectively solve the problem of stock pattern analysis.
